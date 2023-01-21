@@ -48,7 +48,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 29);
+            this.label1.Location = new System.Drawing.Point(12, 49);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(132, 32);
             this.label1.TabIndex = 0;
@@ -127,9 +127,9 @@
             // 
             this.listPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(53)))), ((int)(((byte)(59)))));
             this.listPanel.Controls.Add(this.panel1);
-            this.listPanel.Location = new System.Drawing.Point(0, 73);
+            this.listPanel.Location = new System.Drawing.Point(0, 91);
             this.listPanel.Name = "listPanel";
-            this.listPanel.Size = new System.Drawing.Size(361, 434);
+            this.listPanel.Size = new System.Drawing.Size(361, 416);
             this.listPanel.TabIndex = 3;
             // 
             // manageButton
@@ -139,7 +139,7 @@
             this.manageButton.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.manageButton.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.manageButton.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(144)))), ((int)(((byte)(159)))));
-            this.manageButton.Location = new System.Drawing.Point(278, 39);
+            this.manageButton.Location = new System.Drawing.Point(278, 59);
             this.manageButton.Name = "manageButton";
             this.manageButton.Size = new System.Drawing.Size(65, 20);
             this.manageButton.TabIndex = 13;
@@ -159,6 +159,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "WorldTime";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

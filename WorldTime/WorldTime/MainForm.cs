@@ -17,5 +17,11 @@ namespace WorldTime
             var frm = new SetupForm();
             frm.ShowDialog();
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            Common.CreateDebugZones();
+            Common.LoadSystemTimezones();
+        }
     }
 }
