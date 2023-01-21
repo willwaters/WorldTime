@@ -155,6 +155,7 @@
             this.subtextTextBox.Size = new System.Drawing.Size(193, 16);
             this.subtextTextBox.TabIndex = 6;
             this.subtextTextBox.Text = "Switzerland";
+            this.subtextTextBox.TextChanged += new System.EventHandler(this.subtextTextBox_TextChanged);
             // 
             // label4
             // 
@@ -244,6 +245,7 @@
             this.grid.DefaultCellStyle = dataGridViewCellStyle2;
             this.grid.EnableHeadersVisualStyles = false;
             this.grid.Location = new System.Drawing.Point(14, 67);
+            this.grid.MultiSelect = false;
             this.grid.Name = "grid";
             this.grid.ReadOnly = true;
             this.grid.RowHeadersVisible = false;
@@ -303,6 +305,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SetupForm";
             this.Text = "Setup Timezones";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SetupForm_FormClosing);
             this.Load += new System.EventHandler(this.SetupForm_Load);
             this.editPanel.ResumeLayout(false);
             this.editPanel.PerformLayout();

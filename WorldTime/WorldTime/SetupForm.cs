@@ -26,12 +26,14 @@ namespace WorldTime
 
             var localRow = grid.Rows[grid.Rows.Add()];
             localRow.Cells[nameColumn.Index].Value = local.Name;
+            localRow.Cells[timezoneColumn.Index].Value = TimeZoneInfo.Local.ToString();
             localRow.Tag = local;
 
             foreach (var zn in others)
             {
                 var row = grid.Rows[grid.Rows.Add()];
                 row.Cells[nameColumn.Index].Value = zn.Name ?? zn.Timezone;
+                row.Cells[timezoneColumn.Index].Value = zn.Timezone;
                 row.Tag = zn;
             }
 
@@ -40,7 +42,54 @@ namespace WorldTime
         private void addTimezoneButton_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             var frm = new AddTimezoneForm();
-            frm.ShowDialog();
+            
+            if(frm.ShowDialog() == DialogResult.OK)
+            {
+                var tz = new Zone
+                {
+                    Name = frm.DisplayName,
+                    IsLocalTime = false,
+                    Timezone = frm.TimezoneName,
+                    Subtext = frm.TimezoneName
+                };
+                var newRow = grid.Rows[grid.Rows.Add()];
+                newRow.Cells[nameColumn.Index].Value = tz.Name;
+                newRow.Cells[timezoneColumn.Index].Value = tz.Timezone;
+                newRow.Tag = tz;
+                newRow.Selected = true;
+            }
+
+
+
+        }
+
+        private void Save()
+        {
+            var newData = new ZoneSetup();
+
+            newData.zones = new List<Zone>();
+
+            foreach (DataGridViewRow row  in grid.Rows)
+            {
+                var zone = (Zone)row.Tag;
+                if(zone != null)
+                {
+                    if(zone.IsLocalTime)
+                    {
+                        newData.zones.Add(new Zone
+                        {
+                            Name = zone.Name,
+                            Subtext = zone.Subtext,
+                            IsLocalTime = true
+                        });
+                    } else
+                    {
+                        newData.zones.Add(zone);
+                    }
+                }
+            }
+
+            Common.SaveZoneSetup(newData);
         }
 
         private void SetupForm_Load(object sender, EventArgs e)
@@ -92,6 +141,8 @@ namespace WorldTime
                     timezoneTextBoxSeperator.Visible = true;
                     timezoneTextBox.Visible = true;
                     timezoneLabel.Visible = true;
+                    subtextTextBox.ReadOnly = false;
+                    subtextTextBox.Text = SelectedZone.Timezone;
                 }
             }
         }
@@ -104,6 +155,14 @@ namespace WorldTime
                 nameLabel.Text = nameTextBox.Text;
                 removeButton.Text = $"Remove '{nameTextBox.Text}'";
                 SelectedRow.Cells[nameColumn.Index].Value = nameTextBox.Text;
+            }
+        }
+
+        private void subtextTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (SelectedZone != null && SelectedZone.IsLocalTime == false)
+            {
+                SelectedZone.Subtext = nameTextBox.Text;
             }
         }
 
@@ -135,14 +194,25 @@ namespace WorldTime
 
         private void timezoneTextBox_Validating(object sender, CancelEventArgs e)
         {
-            if(TimeZoneInfo.GetSystemTimeZones().FirstOrDefault(tz => tz.StandardName.ToLower() == timezoneTextBox.Text.ToLower()) != null)
+            if(SelectedZone.IsLocalTime == false)
             {
-                timezoneTextBox.Text = TimeZoneInfo.GetSystemTimeZones().FirstOrDefault(tz => tz.StandardName.ToLower() == timezoneTextBox.Text.ToLower()).StandardName;
-            } else
-            {
-                MessageBox.Show("Please select a valid timezone!");
-                e.Cancel = true;
+                if (TimeZoneInfo.GetSystemTimeZones().FirstOrDefault(tz => tz.DisplayName.ToLower().EndsWith(timezoneTextBox.Text.ToLower())) != null)
+                {
+                    var name = TimeZoneInfo.GetSystemTimeZones().FirstOrDefault(tz => tz.DisplayName.ToLower().EndsWith(timezoneTextBox.Text.ToLower())).DisplayName;
+                    timezoneTextBox.Text = name;
+                    SelectedRow.Cells[timezoneColumn.Index].Value = name;
+                }
+                else
+                {
+                    MessageBox.Show("Please select a valid timezone!");
+                    e.Cancel = true;
+                }
             }
+        }
+
+        private void SetupForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Save();
         }
     }
 }

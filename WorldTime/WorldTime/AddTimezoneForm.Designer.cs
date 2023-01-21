@@ -30,10 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddTimezoneForm));
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.timezoneTextBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.displayNameTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -52,18 +52,19 @@
             this.label6.Size = new System.Drawing.Size(436, 1);
             this.label6.TabIndex = 17;
             // 
-            // textBox3
+            // timezoneTextBox
             // 
-            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.timezoneTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(41)))), ((int)(((byte)(45)))));
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox3.ForeColor = System.Drawing.Color.White;
-            this.textBox3.Location = new System.Drawing.Point(16, 56);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(436, 20);
-            this.textBox3.TabIndex = 16;
+            this.timezoneTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(41)))), ((int)(((byte)(45)))));
+            this.timezoneTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.timezoneTextBox.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.timezoneTextBox.ForeColor = System.Drawing.Color.White;
+            this.timezoneTextBox.Location = new System.Drawing.Point(16, 56);
+            this.timezoneTextBox.Name = "timezoneTextBox";
+            this.timezoneTextBox.Size = new System.Drawing.Size(436, 20);
+            this.timezoneTextBox.TabIndex = 16;
+            this.timezoneTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.timezoneTextBox_Validating);
             // 
             // label7
             // 
@@ -85,18 +86,18 @@
             this.label4.Size = new System.Drawing.Size(436, 1);
             this.label4.TabIndex = 14;
             // 
-            // textBox1
+            // displayNameTextBox
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.displayNameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(41)))), ((int)(((byte)(45)))));
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox1.ForeColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(16, 107);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(436, 20);
-            this.textBox1.TabIndex = 13;
+            this.displayNameTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(41)))), ((int)(((byte)(45)))));
+            this.displayNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.displayNameTextBox.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.displayNameTextBox.ForeColor = System.Drawing.Color.White;
+            this.displayNameTextBox.Location = new System.Drawing.Point(16, 107);
+            this.displayNameTextBox.Name = "displayNameTextBox";
+            this.displayNameTextBox.Size = new System.Drawing.Size(436, 20);
+            this.displayNameTextBox.TabIndex = 13;
             // 
             // label3
             // 
@@ -166,10 +167,10 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.timezoneTextBox);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.displayNameTextBox);
             this.Controls.Add(this.label3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -180,6 +181,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add Zone";
+            this.Load += new System.EventHandler(this.AddTimezoneForm_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -189,10 +191,10 @@
         #endregion
 
         private Label label6;
-        private TextBox textBox3;
+        private TextBox timezoneTextBox;
         private Label label7;
         private Label label4;
-        private TextBox textBox1;
+        private TextBox displayNameTextBox;
         private Label label3;
         private Label label1;
         private Panel panel1;
